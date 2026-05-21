@@ -94,4 +94,4 @@ Read-only. Offline forensic use — log replay is not performed (snapshots are t
 
 ---
 
-© 2026 Security Ronin Ltd
+[Privacy Policy](https://securityronin.com/privacy) · [Terms of Service](https://securityronin.com/terms) · © 2026 Security Ronin Ltd
