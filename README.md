@@ -94,10 +94,4 @@ Read-only. Offline forensic use — log replay is not performed (snapshots are t
 
 ---
 
-## License
-
-MIT
-
----
-
 © 2026 Security Ronin Ltd
