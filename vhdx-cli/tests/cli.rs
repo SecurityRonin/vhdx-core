@@ -74,5 +74,8 @@ fn info_errors_on_missing_file() {
         .args(["info", "nonexistent.vhdx"])
         .output()
         .expect("vhdx binary must run");
-    assert!(!output.status.success(), "should exit non-zero for missing file");
+    assert!(
+        !output.status.success(),
+        "should exit non-zero for missing file"
+    );
 }

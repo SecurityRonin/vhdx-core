@@ -16,36 +16,47 @@ fn ext2_vhdx_opens() {
 #[test]
 fn ext2_vhdx_virtual_disk_size() {
     let reader = VhdxReader::from_bytes(data("ext2.vhdx")).expect("must open");
-    assert_eq!(reader.virtual_disk_size(), 4 * 1024 * 1024, "virtual_disk_size must be 4 MiB");
+    assert_eq!(
+        reader.virtual_disk_size(),
+        4 * 1024 * 1024,
+        "virtual_disk_size must be 4 MiB"
+    );
 }
 
 #[test]
 fn ext2_vhdx_sector_0_readable() {
     let mut reader = VhdxReader::from_bytes(data("ext2.vhdx")).expect("must open");
     let mut buf = [0u8; 512];
-    reader.read_exact(&mut buf).expect("sector 0 must be readable");
+    reader
+        .read_exact(&mut buf)
+        .expect("sector 0 must be readable");
 }
 
 #[test]
 fn fat_parent_vhdx_opens() {
-    VhdxReader::from_bytes(data("fat-parent.vhdx")).expect("fat-parent.vhdx must open successfully");
+    VhdxReader::from_bytes(data("fat-parent.vhdx"))
+        .expect("fat-parent.vhdx must open successfully");
 }
 
 #[test]
 fn fat_parent_vhdx_virtual_disk_size() {
     let reader = VhdxReader::from_bytes(data("fat-parent.vhdx")).expect("must open");
-    assert_eq!(reader.virtual_disk_size(), 4 * 1024 * 1024, "virtual_disk_size must be 4 MiB");
+    assert_eq!(
+        reader.virtual_disk_size(),
+        4 * 1024 * 1024,
+        "virtual_disk_size must be 4 MiB"
+    );
 }
 
 #[test]
 fn fat_differential_vhdx_refused() {
     let result = VhdxReader::from_bytes(data("fat-differential.vhdx"));
-    assert!(result.is_err(), "VhdxReader must refuse a differencing disk");
     assert!(
-        result
-            .unwrap_err()
-            .to_string()
-            .contains("differencing"),
+        result.is_err(),
+        "VhdxReader must refuse a differencing disk"
+    );
+    assert!(
+        result.unwrap_err().to_string().contains("differencing"),
         "error must mention differencing disk"
     );
 }
@@ -76,11 +87,16 @@ fn qemu_empty_dynamic_virtual_disk_size() {
 
 #[test]
 fn qemu_fixed_opens() {
-    VhdxReader::from_bytes(data("qemu_fixed.vhdx")).expect("qemu_fixed.vhdx must open successfully");
+    VhdxReader::from_bytes(data("qemu_fixed.vhdx"))
+        .expect("qemu_fixed.vhdx must open successfully");
 }
 
 #[test]
 fn qemu_fixed_virtual_disk_size() {
     let reader = VhdxReader::from_bytes(data("qemu_fixed.vhdx")).expect("must open");
-    assert_eq!(reader.virtual_disk_size(), 8 * 1024 * 1024, "virtual_disk_size must be 8 MiB");
+    assert_eq!(
+        reader.virtual_disk_size(),
+        8 * 1024 * 1024,
+        "virtual_disk_size must be 8 MiB"
+    );
 }

@@ -15,8 +15,8 @@ mod bat;
 mod error;
 pub mod header;
 pub mod metadata;
-pub mod region;
 mod reader;
+pub mod region;
 
 pub use error::{Result, VhdxError};
 pub use reader::VhdxReader;

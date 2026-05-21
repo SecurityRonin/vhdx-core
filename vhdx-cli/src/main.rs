@@ -45,11 +45,17 @@ fn main() {
             let sector = reader.logical_sector_size();
             let mib = size as f64 / (1024.0 * 1024.0);
 
-            let file_name = path.file_name().map(|n| n.to_string_lossy().into_owned()).unwrap_or_default();
+            let file_name = path
+                .file_name()
+                .map(|n| n.to_string_lossy().into_owned())
+                .unwrap_or_default();
 
             println!("File:              {file_name}");
             println!("Format:            VHDX v1 (dynamic)");
-            println!("Virtual disk size: {} bytes ({mib:.2} MiB)", fmt_commas(size));
+            println!(
+                "Virtual disk size: {} bytes ({mib:.2} MiB)",
+                fmt_commas(size)
+            );
             println!("Logical sectors:   {sector} bytes");
         }
     }
