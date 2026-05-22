@@ -14,9 +14,8 @@ pub const HEADER_SIZE: usize = 4096;
 #[derive(Debug, Clone)]
 pub struct VhdxHeader {
     pub sequence_number: u64,
-    #[allow(dead_code)]
+    pub log_guid: [u8; 16],
     pub log_offset: u64,
-    #[allow(dead_code)]
     pub log_length: u32,
 }
 
@@ -54,10 +53,12 @@ fn parse_one_header(data: &[u8], offset: usize) -> Result<VhdxHeader> {
         return Err(VhdxError::NoValidHeader);
     }
     let sequence_number = u64::from_le_bytes(slice[8..16].try_into().unwrap());
-    let log_offset = u64::from_le_bytes(slice[72..80].try_into().unwrap());
+    let log_guid: [u8; 16] = slice[48..64].try_into().unwrap();
     let log_length = u32::from_le_bytes(slice[68..72].try_into().unwrap());
+    let log_offset = u64::from_le_bytes(slice[72..80].try_into().unwrap());
     Ok(VhdxHeader {
         sequence_number,
+        log_guid,
         log_offset,
         log_length,
     })

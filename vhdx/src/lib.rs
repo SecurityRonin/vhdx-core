@@ -14,6 +14,7 @@
 mod bat;
 mod error;
 pub mod header;
+mod log;
 pub mod metadata;
 mod reader;
 pub mod region;

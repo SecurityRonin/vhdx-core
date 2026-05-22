@@ -17,6 +17,7 @@ pub struct VhdxReader {
     bat: Bat,
     meta: VhdxMetadata,
     pos: u64,
+    parent: Option<Box<VhdxReader>>,
 }
 
 impl VhdxReader {
@@ -29,18 +30,30 @@ impl VhdxReader {
     const MIN_CONTAINER_SIZE: u64 = 0x0025_0000;
 
     pub fn from_bytes(data: Vec<u8>) -> Result<Self> {
+        Self::parse(data, None)
+    }
+
+    /// Open a differencing (child) disk with its parent chain.
+    ///
+    /// Reads absent blocks from `parent` instead of returning zeros.
+    pub fn from_bytes_with_parent(data: Vec<u8>, parent: VhdxReader) -> Result<Self> {
+        Self::parse(data, Some(Box::new(parent)))
+    }
+
+    fn parse(mut data: Vec<u8>, parent: Option<Box<VhdxReader>>) -> Result<Self> {
         if data.len() < 8 || &data[0..8] != FILE_MAGIC {
             return Err(VhdxError::BadMagic);
         }
         if (data.len() as u64) < Self::MIN_CONTAINER_SIZE {
             return Err(VhdxError::ContainerTooSmall(Self::MIN_CONTAINER_SIZE));
         }
+        crate::log::apply(&mut data)?;
         let _header = parse_active_header(&data)?;
         let regions = parse_region_table(&data, REGION_TABLE1_OFFSET as usize)
             .or_else(|_| parse_region_table(&data, REGION_TABLE2_OFFSET as usize))?;
         let meta = parse_metadata(&data, regions.metadata.file_offset, regions.metadata.length)?;
         meta.validate()?;
-        if meta.has_parent {
+        if meta.has_parent && parent.is_none() {
             return Err(VhdxError::DifferencingNotSupported);
         }
         let bat = Bat::parse(
@@ -54,6 +67,7 @@ impl VhdxReader {
             bat,
             meta,
             pos: 0,
+            parent,
         })
     }
 
@@ -94,7 +108,13 @@ impl Read for VhdxReader {
                         .copy_from_slice(&self.data[file_off as usize..src_end]);
                 }
                 Err(VhdxError::BlockNotPresent(_)) => {
-                    buf[written..written + this_chunk].fill(0);
+                    if let Some(ref mut p) = self.parent {
+                        p.seek(SeekFrom::Start(virtual_byte))
+                            .map_err(io::Error::other)?;
+                        p.read_exact(&mut buf[written..written + this_chunk])?;
+                    } else {
+                        buf[written..written + this_chunk].fill(0);
+                    }
                 }
                 Err(e) => return Err(io::Error::other(e.to_string())),
             }
