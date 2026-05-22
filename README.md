@@ -54,6 +54,16 @@ let data: Vec<u8> = std::fs::read("disk.vhdx")?;
 let reader = VhdxReader::from_bytes(data)?;
 ```
 
+### Open a differencing (child) disk with its parent
+
+```rust
+use vhdx::VhdxReader;
+
+let parent = VhdxReader::from_bytes(std::fs::read("base.vhdx")?)?;
+let reader = VhdxReader::from_bytes_with_parent(std::fs::read("child.vhdx")?, parent)?;
+// Reads absent blocks in the child are transparently served from parent.
+```
+
 ---
 
 ## CLI
@@ -77,10 +87,10 @@ Logical sectors:   512 bytes
 | VHDX Version 1 (Windows 8 / Server 2012+) | ✓ |
 | Dynamic disks (sparse, BAT-addressed) | ✓ |
 | Fixed disks (pre-allocated) | ✓ |
-| Differencing disks (require parent chain) | — |
-| Log replay | — |
+| Differencing disks (single-level parent chain) | ✓ |
+| Log replay (dirty-log recovery) | ✓ |
 
-Read-only. Offline forensic use — log replay is not performed (snapshots are typically clean; mount on a running Hyper-V host for automatic replay if needed).
+Read-only. Differencing disks require the parent image to be supplied via `VhdxReader::from_bytes_with_parent`. Log replay is applied automatically on open when the active header carries a non-zero LogGuid.
 
 ---
 

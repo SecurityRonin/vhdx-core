@@ -75,7 +75,7 @@ fn apply_region(
     Ok(())
 }
 
-fn apply_entry(data: &mut Vec<u8>, entry: &[u8]) {
+fn apply_entry(data: &mut [u8], entry: &[u8]) {
     let descriptor_count = u32::from_le_bytes(entry[24..28].try_into().unwrap()) as usize;
     let desc_start = 64;
     let data_sector_base = desc_start + descriptor_count * 32;
