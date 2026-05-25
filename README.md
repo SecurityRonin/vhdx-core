@@ -106,6 +106,7 @@ Read-only. Differencing disks require the parent image to be supplied via `VhdxR
 | [`vhd`](https://github.com/SecurityRonin/vhd) | Legacy VHD | The predecessor to VHDX — Virtual PC / Hyper-V Generation-1 |
 | [`qcow2`](https://github.com/SecurityRonin/qcow2) | QCOW2 v2/v3 | QEMU / KVM / libvirt disk images |
 | [`dd`](https://github.com/SecurityRonin/dd) | Raw / flat | dd, dcfldd, dc3dd, and FTK Imager raw output — the universal fallback |
+| [`iso`](https://github.com/SecurityRonin/iso) | ISO 9660 | Optical disc images: multi-session, UDF bridge, Rock Ridge, Joliet, El Torito |
 
 ### Forensic analysers
 
