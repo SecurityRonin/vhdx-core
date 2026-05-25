@@ -96,11 +96,23 @@ Read-only. Differencing disks require the parent image to be supplied via `VhdxR
 
 ## Related crates
 
-| Crate | Role |
-|-------|------|
-| [`vhdx-forensic`](https://github.com/SecurityRonin/vhdx-forensic) | Forensic integrity analyser and in-memory repair tool built on this crate |
-| [`ewf`](https://github.com/SecurityRonin/ewf) | Equivalent reader for E01/EWF forensic disk images |
-| [`ewf-forensic`](https://github.com/SecurityRonin/ewf-forensic) | Forensic analyser for E01 images |
+### Container readers
+
+| Crate | Format | Notes |
+|-------|--------|-------|
+| [`ewf`](https://github.com/SecurityRonin/ewf) | E01 / EWF / Ex01 | Dominant professional forensic acquisition format with MCP server |
+| [`aff4`](https://github.com/SecurityRonin/aff4) | AFF4 v1 | Evimetry / aff4-imager forensic disk images with Map streams and Snappy/LZ4 |
+| [`vmdk`](https://github.com/SecurityRonin/vmdk) | VMware VMDK | Monolithic sparse disk images from VMware Workstation / ESXi |
+| [`vhd`](https://github.com/SecurityRonin/vhd) | Legacy VHD | The predecessor to VHDX — Virtual PC / Hyper-V Generation-1 |
+| [`qcow2`](https://github.com/SecurityRonin/qcow2) | QCOW2 v2/v3 | QEMU / KVM / libvirt disk images |
+| [`dd`](https://github.com/SecurityRonin/dd) | Raw / flat | dd, dcfldd, dc3dd, and FTK Imager raw output — the universal fallback |
+
+### Forensic analysers
+
+| Crate | Format | Notes |
+|-------|--------|-------|
+| [`vhdx-forensic`](https://github.com/SecurityRonin/vhdx-forensic) | VHDX | Forensic integrity analyser and in-memory repair tool built on this crate |
+| [`ewf-forensic`](https://github.com/SecurityRonin/ewf-forensic) | E01 | Structural integrity audit, Adler-32 / MD5 hash verification, and in-memory repair |
 
 ---
 
