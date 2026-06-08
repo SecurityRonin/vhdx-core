@@ -1,16 +1,16 @@
-[![Crates.io](https://img.shields.io/crates/v/vhdx.svg)](https://crates.io/crates/vhdx)
-[![Docs.rs](https://img.shields.io/docsrs/vhdx)](https://docs.rs/vhdx)
+[![Crates.io](https://img.shields.io/crates/v/vhdx-core.svg)](https://crates.io/crates/vhdx-core)
+[![Docs.rs](https://img.shields.io/docsrs/vhdx-core)](https://docs.rs/vhdx-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/SecurityRonin/vhdx/actions/workflows/ci.yml/badge.svg)](https://github.com/SecurityRonin/vhdx/actions/workflows/ci.yml)
 [![Sponsor](https://img.shields.io/badge/sponsor-h4x0r-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/h4x0r)
 
-**Pure-Rust read-only VHDX container reader — dynamic, fixed, differencing, and dirty-log recovery.**
+**Pure-Rust VHDX (Hyper-V) virtual-disk container library (reader; writer planned) — dynamic, fixed, differencing, and dirty-log recovery.**
 
 Decodes the Microsoft VHDX container format (Hyper-V, Windows 8+, WSL2, Azure) and exposes a `Read + Seek` interface over the virtual sector stream. Replays dirty logs automatically on open and supports differencing-disk parent chains — zero unsafe code, no C bindings, no external tools required.
 
 ```toml
 [dependencies]
-vhdx = "0.1"
+vhdx-core = "0.2"   # published as vhdx-core, imported as `vhdx`
 ```
 
 ---
