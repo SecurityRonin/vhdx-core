@@ -1,7 +1,7 @@
 [![Crates.io](https://img.shields.io/crates/v/vhdx-core.svg)](https://crates.io/crates/vhdx-core)
 [![Docs.rs](https://img.shields.io/docsrs/vhdx-core)](https://docs.rs/vhdx-core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![CI](https://github.com/SecurityRonin/vhdx/actions/workflows/ci.yml/badge.svg)](https://github.com/SecurityRonin/vhdx/actions/workflows/ci.yml)
+[![CI](https://github.com/SecurityRonin/vhdx-core/actions/workflows/ci.yml/badge.svg)](https://github.com/SecurityRonin/vhdx-core/actions/workflows/ci.yml)
 [![Sponsor](https://img.shields.io/badge/sponsor-h4x0r-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/h4x0r)
 
 **Pure-Rust VHDX (Hyper-V) virtual-disk container library (reader; writer planned) — dynamic, fixed, differencing, and dirty-log recovery.**
@@ -120,4 +120,4 @@ Read-only. Differencing disks require the parent image to be supplied via `VhdxR
 
 ---
 
-[Privacy Policy](https://securityronin.github.io/vhdx/privacy/) · [Terms of Service](https://securityronin.github.io/vhdx/terms/) · © 2026 Security Ronin Ltd
+[Privacy Policy](https://securityronin.github.io/vhdx-core/privacy/) · [Terms of Service](https://securityronin.github.io/vhdx-core/terms/) · © 2026 Security Ronin Ltd
